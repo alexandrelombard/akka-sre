@@ -8,7 +8,7 @@ import io.sarl.akka.sample.Greeter.WhoToGreet;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
-public class AkkaQuickstart {
+public class AkkaHelloWorld {
     public static void main(String[] args) {
         final ActorSystem system = ActorSystem.create("helloakka");
         try {

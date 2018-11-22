@@ -28,7 +28,7 @@
                     <arguments>
                         <argument>-classpath</argument>
                         <classpath />
-                        <argument>io.sarl.akka.sample.AkkaQuickstart</argument>
+                        <argument>io.sarl.akka.sample.AkkaHelloWorld</argument>
                     </arguments>
                 </configuration>
             </plugin>
