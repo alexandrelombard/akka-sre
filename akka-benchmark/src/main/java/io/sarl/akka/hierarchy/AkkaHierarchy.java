@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class AkkaHierarchy {
     public static void main(String[] args) {
-        final ActorSystem system = ActorSystem.create("hierarchyakka");
+        final ActorSystem system = ActorSystem.create("hierarchy-akka");
         try {
             final ActorRef parent = system.actorOf(Parent.props());
 

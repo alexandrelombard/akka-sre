@@ -10,7 +10,7 @@ import akka.actor.ActorSystem;
 
 public class AkkaHelloWorld {
     public static void main(String[] args) {
-        final ActorSystem system = ActorSystem.create("helloakka");
+        final ActorSystem system = ActorSystem.create("hello-akka");
         try {
             //#create-actors
             final ActorRef printerActor =

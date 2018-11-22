@@ -29,10 +29,16 @@ Is an actor a thread? Not really, actors are purely reactive, they don't do anyt
 
 Are messages send through their own thread? Asynchronous emission and reception ? It seems so, messages are put in a
 message box, and polled in order by the receiving actor. An actor is not waiting for the recipient to manage the
-message, however, I don't think a new thread isn't created to populate the message box (it's possible that if
+message, however, I don't think a new thread is created to populate the message box (it's possible that if
 multiples actors are sending a message to a single actor, the synchronization mechanism may pause the actor, this should
 be checked).
 
-Are tell() calls equivalent to _emit_? Sort of, but they look directed toward a specific agent.
+Are tell() calls equivalent to _emit_? Sort of, but they look directed toward a specific actor.
+We can then imagine a specific kind of actor (a ContextActor) whose only purpose is to transmit
+messages to all of its children, then if an actor wants to emit messages to all actors within a context,
+it will send them to this specific actor. Another solution is to use Event Bus.
 
 Holarchy, inner context and so on? An actor is always a child of another actor.
+
+Changing context? If the concept of context is mapped to the actor's hierarchy, it must be possible
+for an actor to belong to several parents.
