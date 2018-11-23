@@ -33,7 +33,7 @@ message, however, I don't think a new thread is created to populate the message 
 multiples actors are sending a message to a single actor, the synchronization mechanism may pause the actor, this should
 be checked).
 
-Are tell() calls equivalent to _emit_? Sort of, but they look directed toward a specific actor.
+Are **tell()** calls equivalent to _emit_? Sort of, but they look directed toward a specific actor.
 We can then imagine a specific kind of actor (a ContextActor) whose only purpose is to transmit
 messages to all of its children, then if an actor wants to emit messages to all actors within a context,
 it will send them to this specific actor. Another solution is to use Event Bus.
@@ -45,4 +45,5 @@ for an actor to belong to several parents. It's not possible using the actor hie
 multiple parents.
 
 Communication through network? While EventStream and EventBus allow peer-to-many communication betwwen
-actors, they are local. Events are not automatically transferred to EventBuses on other systems.
+actors, they are local. Events are not automatically transferred to EventBuses on other systems. It may be possible with
+**DistributedPubSub**.
