@@ -10,7 +10,8 @@
 
     <properties>
         <sarl.version>0.9.0-SNAPSHOT</sarl.version>
-        <cliRunnerMainClass>io.sarl.akka.Boot</cliRunnerMainClass>
+        <sre.name>AkkaSRE</sre.name>
+        <cli.runner.main.class>io.sarl.akka.Boot</cli.runner.main.class>
         <bootstrap>io.sarl.akka.Bootstrap</bootstrap>
     </properties>
 
@@ -30,17 +31,23 @@
                 <!-- to create a jar with all dependencies -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
                     <descriptors>
                         <descriptor>with-dependencies.xml</descriptor>
                     </descriptors>
+                    <archive>
+                        <manifest>
+                            <mainClass>${cli.runner.main.class}</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
                 <executions>
                     <execution>
                         <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>attached</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -51,7 +58,7 @@
                 <artifactId>io.sarl.maven.sre</artifactId>
                 <version>${sarl.version}</version>
                 <configuration>
-                    <sreName>AkkaSRE</sreName>
+                    <sreName>${sre.name}</sreName>
                     <commandLineOptions>
                         <hideInfo></hideInfo>
                         <hideLogo></hideLogo>
@@ -64,16 +71,19 @@
                         <embedded></embedded>
                         <noMoreOption></noMoreOption>
                     </commandLineOptions>
-                    <mainClass>${cliRunnerMainClass}</mainClass>
+                    <mainClass>${cli.runner.main.class}</mainClass>
                     <bootstrap>${bootstrap}</bootstrap>
+                    <standaloneSRE>true</standaloneSRE>
+                    <archiveFinalNames>
+                        <name>${project.artifactId}-${project.version}-with-dependencies</name>
+                    </archiveFinalNames>
                 </configuration>
 
                 <executions>
                     <execution>
-                        <id>update-manifest-standard</id>
+                        <id>update-manifest-standalone</id>
                         <goals>
                             <goal>updatemanifest</goal>
-                            <goal>addbootstrap</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -95,6 +105,11 @@
         <dependency>
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-actor_2.12</artifactId>
+            <version>2.5.18</version>
+        </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-cluster_2.12</artifactId>
             <version>2.5.18</version>
         </dependency>
         <dependency>

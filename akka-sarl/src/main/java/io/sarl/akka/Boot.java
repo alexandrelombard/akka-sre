@@ -1,7 +1,5 @@
 package io.sarl.akka;
 
-import io.sarl.lang.core.Agent;
-
 /**
  * This is the class that permits to boot the Akka SRE platform.
  *
