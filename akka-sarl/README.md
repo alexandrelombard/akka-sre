@@ -41,4 +41,8 @@ it will send them to this specific actor. Another solution is to use Event Bus.
 Holarchy, inner context and so on? An actor is always a child of another actor.
 
 Changing context? If the concept of context is mapped to the actor's hierarchy, it must be possible
-for an actor to belong to several parents.
+for an actor to belong to several parents. It's not possible using the actor hierarchy to have 
+multiple parents.
+
+Communication through network? While EventStream and EventBus allow peer-to-many communication betwwen
+actors, they are local. Events are not automatically transferred to EventBuses on other systems.
