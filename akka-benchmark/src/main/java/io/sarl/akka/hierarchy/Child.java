@@ -1,11 +1,9 @@
 package io.sarl.akka.hierarchy;
 
 import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-import io.sarl.akka.sample.Printer.Greeting;
 
 public class Child extends AbstractActor {
     static public Props props() {

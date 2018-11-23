@@ -3,9 +3,6 @@ package io.sarl.akka.hierarchy;
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
-import io.sarl.akka.sample.Printer.Greeting;
 
 import java.util.ArrayList;
 import java.util.List;

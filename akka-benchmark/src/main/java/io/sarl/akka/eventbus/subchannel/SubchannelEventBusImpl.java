@@ -1,7 +1,6 @@
 package io.sarl.akka.eventbus.subchannel;
 
 import akka.actor.ActorRef;
-import akka.event.japi.LookupEventBus;
 import akka.event.japi.SubchannelEventBus;
 import akka.util.Subclassification;
 

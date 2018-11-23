@@ -2,10 +2,6 @@ package io.sarl.akka.hierarchy;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import io.sarl.akka.sample.Greeter;
-import io.sarl.akka.sample.Greeter.Greet;
-import io.sarl.akka.sample.Greeter.WhoToGreet;
-import io.sarl.akka.sample.Printer;
 
 import java.io.IOException;
 

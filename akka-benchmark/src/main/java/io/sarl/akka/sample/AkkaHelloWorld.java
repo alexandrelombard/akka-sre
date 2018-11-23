@@ -2,9 +2,6 @@ package io.sarl.akka.sample;
 
 import java.io.IOException;
 
-import io.sarl.akka.sample.Greeter.Greet;
-import io.sarl.akka.sample.Greeter.WhoToGreet;
-
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
@@ -24,17 +21,17 @@ public class AkkaHelloWorld {
             //#create-actors
 
             //#main-send-messages
-            howdyGreeter.tell(new WhoToGreet("Akka"), ActorRef.noSender());
-            howdyGreeter.tell(new Greet(), ActorRef.noSender());
+            howdyGreeter.tell(new Greeter.WhoToGreet("Akka"), ActorRef.noSender());
+            howdyGreeter.tell(new Greeter.Greet(), ActorRef.noSender());
 
-            howdyGreeter.tell(new WhoToGreet("Lightbend"), ActorRef.noSender());
-            howdyGreeter.tell(new Greet(), ActorRef.noSender());
+            howdyGreeter.tell(new Greeter.WhoToGreet("Lightbend"), ActorRef.noSender());
+            howdyGreeter.tell(new Greeter.Greet(), ActorRef.noSender());
 
-            helloGreeter.tell(new WhoToGreet("Java"), ActorRef.noSender());
-            helloGreeter.tell(new Greet(), ActorRef.noSender());
+            helloGreeter.tell(new Greeter.WhoToGreet("Java"), ActorRef.noSender());
+            helloGreeter.tell(new Greeter.Greet(), ActorRef.noSender());
 
-            goodDayGreeter.tell(new WhoToGreet("Play"), ActorRef.noSender());
-            goodDayGreeter.tell(new Greet(), ActorRef.noSender());
+            goodDayGreeter.tell(new Greeter.WhoToGreet("Play"), ActorRef.noSender());
+            goodDayGreeter.tell(new Greeter.Greet(), ActorRef.noSender());
             //#main-send-messages
 
             System.out.println(">>> Press ENTER to exit <<<");
