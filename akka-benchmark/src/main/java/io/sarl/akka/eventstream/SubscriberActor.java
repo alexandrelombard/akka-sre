@@ -1,13 +1,9 @@
-package io.sarl.akka.eventbus;
+package io.sarl.akka.eventstream;
 
 import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubscriberActor extends AbstractActor {
     static public Props props() {

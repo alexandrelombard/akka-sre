@@ -1,4 +1,4 @@
-package io.sarl.akka.eventbus;
+package io.sarl.akka.eventstream;
 
 public class Message {
 

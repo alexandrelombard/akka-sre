@@ -1,14 +1,13 @@
-package io.sarl.akka.eventbus;
+package io.sarl.akka.eventstream;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import io.sarl.akka.hierarchy.Parent;
 
 import java.io.IOException;
 
-public class AkkaEventbus {
+public class AkkaEventStream {
     public static void main(String[] args) {
-        final ActorSystem system = ActorSystem.create("event-bus-akka");
+        final ActorSystem system = ActorSystem.create("event-stream-akka");
         try {
             final ActorRef publisher = system.actorOf(PublisherActor.props());
             final ActorRef subscriber1 = system.actorOf(SubscriberActor.props());

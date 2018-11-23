@@ -15,6 +15,6 @@ Testing hierarchies of actor and communication within a hierarchy. A parent acto
 it then creates 10 children. When the parent receives the message "Start", it sends the message
 "PrintSomething" to all of its children which then print something.
 
-### io.sarl.akka.eventbus
+### io.sarl.akka.eventstream
 
 Testing the event-bus for peer-to-many communication between actors.
