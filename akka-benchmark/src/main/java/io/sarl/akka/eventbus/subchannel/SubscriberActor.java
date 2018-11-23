@@ -1,4 +1,4 @@
-package io.sarl.akka.eventbus;
+package io.sarl.akka.eventbus.subchannel;
 
 import akka.actor.AbstractActor;
 import akka.actor.Props;

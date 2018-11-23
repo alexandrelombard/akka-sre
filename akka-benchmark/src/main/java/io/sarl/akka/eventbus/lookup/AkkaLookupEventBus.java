@@ -1,12 +1,11 @@
-package io.sarl.akka.eventbus;
+package io.sarl.akka.eventbus.lookup;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import akka.event.japi.EventBus;
 
 import java.io.IOException;
 
-public class AkkaEventBus {
+public class AkkaLookupEventBus {
     public static void main(String[] args) {
         final ActorSystem system = ActorSystem.create("event-bus-akka");
         try {

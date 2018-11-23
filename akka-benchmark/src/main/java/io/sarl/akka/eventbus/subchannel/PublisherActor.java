@@ -1,25 +1,24 @@
-package io.sarl.akka.eventbus;
+package io.sarl.akka.eventbus.subchannel;
 
 import akka.actor.AbstractActor;
 import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-import akka.event.japi.EventBus;
 
 public class PublisherActor extends AbstractActor {
-    static public Props props(CustomEventBus eventBus) {
+    static public Props props(SubchannelEventBusImpl eventBus) {
         return Props.create(PublisherActor.class, () -> new PublisherActor(eventBus));
     }
 
     private LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
-    private final CustomEventBus eventBus;
+    private final SubchannelEventBusImpl eventBus;
 
     public static class TriggerEmit {
         //
     }
 
-    public PublisherActor(CustomEventBus eventBus) {
+    public PublisherActor(SubchannelEventBusImpl eventBus) {
         this.eventBus = eventBus;
     }
 
@@ -28,7 +27,7 @@ public class PublisherActor extends AbstractActor {
         return receiveBuilder()
                 .match(TriggerEmit.class, event -> {
                     log.info("Received TriggerEmit event: PublisherActor will publish a message...");
-                    eventBus.publish(new Message("default-channel", "This is a message"));
+                    eventBus.publish(new Message("default-channel-2", "This is a message"));
                 })
                 .build();
     }

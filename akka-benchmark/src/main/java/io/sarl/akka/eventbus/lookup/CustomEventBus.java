@@ -1,4 +1,4 @@
-package io.sarl.akka.eventbus;
+package io.sarl.akka.eventbus.lookup;
 
 import akka.actor.ActorRef;
 import akka.event.japi.LookupEventBus;
