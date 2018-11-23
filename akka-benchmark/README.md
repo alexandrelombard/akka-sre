@@ -17,4 +17,8 @@ it then creates 10 children. When the parent receives the message "Start", it se
 
 ### io.sarl.akka.eventstream
 
-Testing the event-bus for peer-to-many communication between actors.
+Testing the event stream for peer-to-many communication between actors.
+
+### io.sarl.akka.eventbus
+
+Testing a custom event bus for peer-to-many (but not peer-to-anyone) communication between actors.
