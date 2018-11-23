@@ -3,7 +3,7 @@
 Implementation of a Sarl Runtime Environment using Akka.io.
 
 Note: This project is mainly a todo list for planning the mapping of Sarl multiagent concepts to the
-Akka's actor model concepts.
+Akka's actor model concepts. The rest is purely tests for studying how it's possible to map the concepts.
 
 ## Mapping concepts
 
