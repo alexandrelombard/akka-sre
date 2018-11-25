@@ -52,7 +52,7 @@ public class AkkaAgent extends AbstractActor  implements EventListener {
             boolean isAcc = method.isAccessible();
             try {
                 method.setAccessible(true);
-                method.invoke(getSarlAgent(), Logging.class, this.loggingSkill);
+                method.invoke(getSarlAgent(), Logging.class, this.loggingSkill);    // Register the logging skill
             } finally {
                 method.setAccessible(isAcc);
             }
