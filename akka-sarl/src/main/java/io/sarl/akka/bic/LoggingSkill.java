@@ -65,7 +65,8 @@ public class LoggingSkill extends Skill implements Logging {
 
     @Override
     public void error(Object message, Throwable exception, Object... parameters) {
-        System.out.println("[" + this.loggingName + "] ERROR: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+//        System.out.println("[" + this.loggingName + "] ERROR: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.severe(message.toString());
         if (exception != null) {
             exception.printStackTrace(System.out);
         }
@@ -73,12 +74,20 @@ public class LoggingSkill extends Skill implements Logging {
 
     @Override
     public void error(Supplier<String> messageProvider) {
-        System.out.println("[" + this.loggingName + "] ERROR: " + messageProvider.get()); //$NON-NLS-1$ //$NON-NLS-2$
+//        System.out.println("[" + this.loggingName + "] ERROR: " + messageProvider.get()); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.severe(messageProvider.get());
+    }
+
+    @Override
+    public void error(Object message, Object... parameters) {
+//        System.out.println("[" + this.loggingName + "] ERROR: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.severe(message.toString());
     }
 
     @Override
     public void warning(Object message, Throwable exception, Object... parameters) {
-        System.out.println("[" + this.loggingName + "] WARNING: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+//        System.out.println("[" + this.loggingName + "] WARNING: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.warning(message.toString());
         if (exception != null) {
             exception.printStackTrace(System.out);
         }
@@ -86,37 +95,38 @@ public class LoggingSkill extends Skill implements Logging {
 
     @Override
     public void warning(Supplier<String> messageProvider) {
-        System.out.println("[" + this.loggingName + "] WARNING: " + messageProvider.get()); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
-    @Override
-    public void info(Object message, Object... parameters) {
-        System.out.println("[" + this.loggingName + "] INFO: " + message); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
-    @Override
-    public void info(Supplier<String> messageProvider) {
-        System.out.println("[" + this.loggingName + "] INFO: " + messageProvider.get()); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
-    @Override
-    public void debug(Object message, Object... parameters) {
-        System.out.println("[" + this.loggingName + "] DEBUG: " + message); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
-    @Override
-    public void debug(Supplier<String> messageProvider) {
-        System.out.println("[" + this.loggingName + "] DEBUG: " + messageProvider.get()); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
-    @Override
-    public void error(Object message, Object... parameters) {
-        System.out.println("[" + this.loggingName + "] ERROR: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+//        System.out.println("[" + this.loggingName + "] WARNING: " + messageProvider.get()); //$NON-NLS-1$ //$NON-NLS-2$-
+        this.logger.warning(messageProvider.get());
     }
 
     @Override
     public void warning(Object message, Object... parameters) {
-        System.out.println("[" + this.loggingName + "] WARNING: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+//        System.out.println("[" + this.loggingName + "] WARNING: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.fine(message.toString());
+    }
+
+    @Override
+    public void info(Object message, Object... parameters) {
+//        System.out.println("[" + this.loggingName + "] INFO: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.info(message.toString());
+    }
+
+    @Override
+    public void info(Supplier<String> messageProvider) {
+//        System.out.println("[" + this.loggingName + "] INFO: " + messageProvider.get()); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.info(messageProvider.get());
+    }
+
+    @Override
+    public void debug(Object message, Object... parameters) {
+//        System.out.println("[" + this.loggingName + "] DEBUG: " + message); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.fine(message.toString());
+    }
+
+    @Override
+    public void debug(Supplier<String> messageProvider) {
+//        System.out.println("[" + this.loggingName + "] DEBUG: " + messageProvider.get()); //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.fine(messageProvider.get());
     }
 
 }
