@@ -11,7 +11,7 @@
 
     <modules>
         <module>akka-benchmark</module>
-        <module>akka-sarl</module>
+        <module>sre-template</module>
     </modules>
     
 </project>

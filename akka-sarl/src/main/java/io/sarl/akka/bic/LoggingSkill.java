@@ -101,8 +101,7 @@ public class LoggingSkill extends Skill implements Logging {
 
     @Override
     public void warning(Object message, Object... parameters) {
-//        System.out.println("[" + this.loggingName + "] WARNING: " + message); //$NON-NLS-1$ //$NON-NLS-2$
-        this.logger.fine(message.toString());
+        System.out.println("[" + this.loggingName + "] WARNING: " + message); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     @Override
