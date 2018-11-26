@@ -2,6 +2,7 @@ package io.sarl.akka.bic;
 
 import io.sarl.akka.AkkaAgent;
 import io.sarl.core.Logging;
+import io.sarl.lang.core.Agent;
 import io.sarl.lang.core.Skill;
 
 import java.util.function.Supplier;
@@ -10,14 +11,16 @@ import java.util.logging.Logger;
 public class LoggingSkill extends Skill implements Logging {
 
     private String loggingName = getID().toString();
+    private Logger logger = Logger.getLogger(this.loggingName);
 
-    public LoggingSkill() {
-        //
+    public LoggingSkill(Agent owner) {
+        super(owner);
     }
 
     @Override
     public void setLoggingName(String loggingName) {
         this.loggingName = loggingName;
+        this.logger = Logger.getLogger(this.loggingName);
     }
 
     @Override
@@ -57,7 +60,7 @@ public class LoggingSkill extends Skill implements Logging {
 
     @Override
     public Logger getLogger() {
-        return null;
+        return this.logger;
     }
 
     @Override

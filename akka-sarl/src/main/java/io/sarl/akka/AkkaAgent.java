@@ -45,7 +45,7 @@ public class AkkaAgent extends AbstractActor  implements EventListener {
 
         // Initialize all attributes
         this.evaluatorRegistry.register(getSarlAgent());
-        this.loggingSkill = new LoggingSkill();
+        this.loggingSkill = new LoggingSkill(getSarlAgent());
 
         try {
             Method method = Agent.class.getDeclaredMethod("setSkill", Class.class, Skill.class); //$NON-NLS-1$
