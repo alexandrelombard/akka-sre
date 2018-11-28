@@ -1,3 +1,5 @@
 package io.sarl.akka.intervm
 
-class CustomEvent(private val message: String)
+import java.io.Serializable
+
+class CustomEvent(val message: String) : Serializable

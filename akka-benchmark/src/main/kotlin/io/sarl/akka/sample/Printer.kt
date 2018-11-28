@@ -22,11 +22,9 @@ class Printer : AbstractActor() {
     }
 
     companion object {
-        //#printer-messages
         fun props(): Props {
             return Props.create<Printer>(Printer::class.java) { Printer() }
         }
     }
-    //#printer-messages
 }
 //#printer-messages
