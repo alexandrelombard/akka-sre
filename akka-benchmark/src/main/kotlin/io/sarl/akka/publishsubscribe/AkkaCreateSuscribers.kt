@@ -3,6 +3,9 @@ package io.sarl.akka.publishsubscribe
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import akka.actor.Props
+import akka.cluster.pubsub.DistributedPubSub
+import akka.cluster.pubsub.DistributedPubSubMediator
+import akka.pattern.PatternsCS.ask
 import com.typesafe.config.ConfigFactory
 import java.io.IOException
 
@@ -16,7 +19,11 @@ object AkkaCreateSuscribers {
             val subscriber1 = system.actorOf(Props.create(Subscriber::class.java), "subscriber1")
             system.actorOf(Props.create(Subscriber::class.java), "subscriber2")
             system.actorOf(Props.create(Subscriber::class.java), "subscriber3")
+            val mediatorObserver = system.actorOf(Props.create(MediatorObserver::class.java), "mediator-observer")
             //#create-actors
+
+            // Ask the mediator for content topics
+            mediatorObserver.tell("getTopics", ActorRef.noSender())
 
             println(">>> Press ENTER to send message to subscriber 1 <<<")
             System.`in`.read()

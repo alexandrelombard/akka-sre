@@ -38,3 +38,10 @@ from a single host.
 
 Testing communication between actors on two VM using network and the publish/subscribe feature of the akka-cluster-tools.
 First, start _AkkaCreateSubscribers_, then _AkkaCreatePublisher_ when the first one is initialized.
+Possibilities for sending messages using _DistributedPubSub_:
+- Publish: the message is directed toward a topic, all subscribers registered for a topic will receive the message
+- Send: the message is directed toward a path (system/actor), and sent to a single actor
+- SendToAll: the message is directed toward a path, and sent to all matching actors
+
+Possibilities for getting the list of topics:
+- Sending getTopicsInstance() to a mediator actor and waiting for the CurrentTopics reply
