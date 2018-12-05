@@ -11,7 +11,7 @@ Akka's actor model concepts. The rest is purely tests for studying how it's poss
 |----------|:-------------:|------:|
 | Identifying the agents | Address | ActorRef? |
 | Agent abstraction | Agent | AbstractActor? |
-| Exchanged information format for direct interaction | Event | - |
+| Exchanged information format for direct interaction | Event | Any Serializable class |
 | Receiving SARL events | Behavior units on | override createReceive()? |
 | Default context definition | Context | ActorSystem? |
 | Default space definition | EventSpace | ActorSystem? |
@@ -47,3 +47,9 @@ multiple parents.
 Communication through network? While EventStream and EventBus allow peer-to-many communication betwwen
 actors, they are local. Events are not automatically transferred to EventBuses on other systems. It may be possible with
 **DistributedPubSub**.
+
+**DistributedPubSub** allows actors to communicate remotely: a subscriber actor will subscribe to a
+given topic, then if any actor of the system sends a message on this topic it will be received by the subscriber.
+An intermediate actor (the **DistributedPubSubMediator** or _mediator_) is in charge of managing this messages: the messages are sent to
+the mediator and the mediator retransfer the messages to the subscribers. It doesn't require to
+know where the actors are located. 

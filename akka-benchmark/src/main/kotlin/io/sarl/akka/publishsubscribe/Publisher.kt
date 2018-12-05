@@ -1,22 +1,23 @@
 package io.sarl.akka.publishsubscribe
 
 import akka.actor.AbstractActor
-import akka.cluster.pubsub.DistributedPubSubMediator
-import akka.actor.Nobody.tell
+import akka.actor.ActorRef
 import akka.cluster.pubsub.DistributedPubSub
-
+import akka.cluster.pubsub.DistributedPubSubMediator
 
 
 class Publisher : AbstractActor() {
     // activate the extension
-    var mediator = DistributedPubSub.get(context.system()).mediator()
+    private val mediator: ActorRef = DistributedPubSub.get(context.system()).mediator()
 
     override fun createReceive(): AbstractActor.Receive {
         return receiveBuilder()
                 .match(String::class.java) { `in` ->
                     val out = `in`.toUpperCase()
-                    mediator.tell(DistributedPubSubMediator.Publish("content", out),
-                            self)
+                    mediator.tell(DistributedPubSubMediator.Publish("content", out), self)
+                }
+                .match(DistributedPubSubMediator.SubscribeAck::class.java) {
+                    println("Publisher is registered (SubscribeAck)")
                 }
                 .build()
     }
