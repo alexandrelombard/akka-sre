@@ -12,9 +12,8 @@ class Publisher : AbstractActor() {
 
     override fun createReceive(): AbstractActor.Receive {
         return receiveBuilder()
-                .match(String::class.java) { `in` ->
-                    val out = `in`.toUpperCase()
-                    mediator.tell(DistributedPubSubMediator.Publish("content", out), self)
+                .match(String::class.java) {
+                    mediator.tell(DistributedPubSubMediator.Publish("content", it), self)
                 }
                 .match(DistributedPubSubMediator.SubscribeAck::class.java) {
                     println("Publisher is registered (SubscribeAck)")
