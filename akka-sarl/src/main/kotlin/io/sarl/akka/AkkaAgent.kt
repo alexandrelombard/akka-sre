@@ -3,7 +3,10 @@ package io.sarl.akka
 import akka.actor.AbstractActor
 import akka.actor.Props
 import akka.japi.pf.ReceiveBuilder
+import io.sarl.akka.bic.DefaultContextInteractionsSkill
 import io.sarl.akka.bic.LoggingSkill
+import io.sarl.akka.space.AkkaAgentContext
+import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Logging
 import io.sarl.eventdispatching.BehaviorGuardEvaluator
@@ -20,21 +23,20 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
 
     private val evaluatorRegistry = BehaviorGuardEvaluatorRegistry()
 
-    var sarlAgent: Agent
-        private set
-
+    private var sarlAgent: Agent
     private val loggingSkill: LoggingSkill
+    private val spaceSkill: DefaultContextInteractionsSkill
 
-//    private DefaultContextInteractionsSkill spaceSkill;
-
+    val agentContext: AkkaAgentContext = AkkaAgentContext(this)
 
     init {
         val cons = this.agentClass.getConstructor(UUID::class.java, UUID::class.java)
-        this.sarlAgent = cons.newInstance(null, this.id)
+        this.sarlAgent = cons.newInstance(null, agentContext.id)
 
         // Initialize all attributes
         this.evaluatorRegistry.register(sarlAgent)
         this.loggingSkill = LoggingSkill(sarlAgent)
+        this.spaceSkill = DefaultContextInteractionsSkill(this, sarlAgent)
 
         try {
             val method = Agent::class.java.getDeclaredMethod("setSkill", Class::class.java, Skill::class.java) //$NON-NLS-1$
@@ -42,6 +44,7 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
             try {
                 method.isAccessible = true
                 method.invoke(sarlAgent, Logging::class.java, this.loggingSkill)    // Register the logging skill
+                method.invoke(sarlAgent, DefaultContextInteractions::class.java, this.spaceSkill)   // Register the space skill
             } finally {
                 method.isAccessible = isAcc
             }
@@ -59,15 +62,15 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
     }
 
     override fun receiveEvent(event: Event) {
-        //        if (event.getSource() == null) {
-        //            event.setSource(getDefaultSpace().getAddress(this.sarlAgent.getID()));
-        //        }
+        if (event.source == null) {
+            event.source = agentContext.defaultSpace.getAddress(agentContext.id);
+        }
 
         fireEvent(event)
     }
 
-    override fun getID(): UUID? {
-        return null
+    override fun getID(): UUID {
+        return agentContext.id
     }
 
     private fun fireEvent(event: Event) {
