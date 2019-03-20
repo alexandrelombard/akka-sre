@@ -266,8 +266,9 @@ object Boot {
 
             // Spawn the agent
             val config = ConfigFactory.parseResources(javaClass, "sre.conf")
+            config.withFallback(ConfigFactory.defaultReference())
             system = ActorSystem.create("sre-akka", config)
-            val actorRef = system!!.actorOf(AkkaAgent.props(agent))
+            val actorRef = system!!.actorOf(AkkaAgent.props(agent!!))
         } catch (e: ParseException) {
             // TODO
             e.printStackTrace()
