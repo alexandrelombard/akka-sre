@@ -2,6 +2,7 @@ package io.sarl.akka
 
 import akka.actor.AbstractActor
 import akka.actor.Props
+import akka.cluster.pubsub.DistributedPubSubMediator
 import akka.japi.pf.ReceiveBuilder
 import io.sarl.akka.bic.DefaultContextInteractionsSkill
 import io.sarl.akka.bic.LoggingSkill
@@ -60,7 +61,10 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
     }
 
     override fun createReceive(): AbstractActor.Receive {
-        return ReceiveBuilder.create().build()
+        return receiveBuilder()
+                .match(AgentGetIdRequest::class.java) {
+                    sender.tell(id, self)
+                }.build()
     }
 
     override fun receiveEvent(event: Event) {
@@ -101,4 +105,6 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
             return Props.create(AkkaAgent::class.java) { AkkaAgent(agentClass) }
         }
     }
+
+    class AgentGetIdRequest
 }

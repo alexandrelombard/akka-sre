@@ -162,7 +162,7 @@ object Boot {
             return options
         }
 
-    private var system: ActorSystem? = null
+    lateinit var system: ActorSystem
 
     /**
      * Parse the command line.
@@ -273,7 +273,7 @@ object Boot {
                     .resolve()
 
             system = ActorSystem.create("sre-akka", config)
-            val actorRef = system!!.actorOf(AkkaAgent.props(agent!!))
+            val actorRef = system.actorOf(AkkaAgent.props(agent!!))
         } catch (e: ParseException) {
             // TODO
             e.printStackTrace()
