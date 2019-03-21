@@ -265,8 +265,13 @@ object Boot {
             val agent = loadAgentClass(agentToLaunch)
 
             // Spawn the agent
-            val config = ConfigFactory.parseResources(javaClass, "sre.conf")
-            config.withFallback(ConfigFactory.defaultReference())
+            // FIXME reference.conf should be automatically merged from Akka configuration files when the JAR is being built
+            val referenceConfigText = javaClass::class.java.getResourceAsStream("/io/sarl/akka/merged-reference.conf").bufferedReader().readText()
+            val config = ConfigFactory
+                    .parseResources(javaClass, "sre.conf")
+                    .withFallback(ConfigFactory.parseString(referenceConfigText))
+                    .resolve()
+
             system = ActorSystem.create("sre-akka", config)
             val actorRef = system!!.actorOf(AkkaAgent.props(agent!!))
         } catch (e: ParseException) {
