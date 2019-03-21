@@ -27,9 +27,11 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
     private val loggingSkill: LoggingSkill
     private val spaceSkill: DefaultContextInteractionsSkill
 
-    val agentContext: AkkaAgentContext = AkkaAgentContext(this)
+    val agentContext: AkkaAgentContext
 
     init {
+        agentContext = AkkaAgentContext(this)
+
         val cons = this.agentClass.getConstructor(UUID::class.java, UUID::class.java)
         this.sarlAgent = cons.newInstance(null, agentContext.id)
 

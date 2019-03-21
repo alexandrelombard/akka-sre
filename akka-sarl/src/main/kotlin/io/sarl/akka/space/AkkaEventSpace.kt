@@ -16,7 +16,7 @@ import java.util.*
 class AkkaEventSpace(val agentContext: AkkaAgentContext) : OpenEventSpace {
 
     private val mediator = DistributedPubSub.get(agentContext.agent.context.system()).mediator()
-    private val spaceId = SpaceID(agentContext.agent.id, UUID.randomUUID(), OpenEventSpaceSpecification::class.java)
+    private val spaceId = SpaceID(agentContext.id, UUID.randomUUID(), OpenEventSpaceSpecification::class.java)
     private val topic = spaceId.id.toString()    // Random topic (space identifier)
 
     override fun register(entity: EventListener): Address {
