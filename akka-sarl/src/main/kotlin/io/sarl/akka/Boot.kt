@@ -218,7 +218,7 @@ object Boot {
     private fun loadAgentClass(fullyQualifiedName: String): Class<out Agent>? {
         val type: Class<*>
         try {
-            type = Boot::class.java.getClassLoader().loadClass(fullyQualifiedName)   // FIXME Originally getCurrentClassLoader()
+            type = Boot::class.java.classLoader.loadClass(fullyQualifiedName)   // FIXME Originally getCurrentClassLoader()
         } catch (e: Exception) {
             showError("Error Boot_1", e)       // TODO Show explicit error message
             // Even if showError never returns, add the return statement for
@@ -226,17 +226,14 @@ object Boot {
             return null
         }
 
-        // The following test is needed because the
-        // cast to Class<? extends Agent> is not checking
-        // the Agent type (it is a generic type, not
-        // tested at runtime).
+        // The following test is needed because the cast to Class<? extends Agent> is not checking
+        // the Agent type (it is a generic type, not tested at runtime).
         if (Agent::class.java.isAssignableFrom(type)) {
             return type.asSubclass(Agent::class.java)
         }
 
         showError("Error Boot_2", null)
-        // Event if showError never returns, add the return statement for
-        // avoiding compilation error.
+        // Event if showError never returns, add the return statement for avoiding compilation error.
         return null
     }
 

@@ -1,10 +1,8 @@
 package io.sarl.akka.bic
 
-import io.sarl.akka.AkkaAgent
 import io.sarl.core.Logging
 import io.sarl.lang.core.Agent
 import io.sarl.lang.core.Skill
-
 import java.util.function.Supplier
 import java.util.logging.Logger
 
@@ -19,7 +17,7 @@ class LoggingSkill(owner: Agent) : Skill(owner), Logging {
     }
 
     override fun println(message: Any) {
-        println("[" + id.toString() + "] " + message) //$NON-NLS-1$ //$NON-NLS-2$
+        System.out.println("[$id] $message") //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     override fun isErrorLogEnabled(): Boolean {

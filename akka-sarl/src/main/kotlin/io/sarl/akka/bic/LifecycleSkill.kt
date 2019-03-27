@@ -1,6 +1,5 @@
 package io.sarl.akka.bic
 
-import akka.pattern.Patterns
 import akka.pattern.Patterns.ask
 import io.sarl.akka.AkkaAgent
 import io.sarl.akka.Boot

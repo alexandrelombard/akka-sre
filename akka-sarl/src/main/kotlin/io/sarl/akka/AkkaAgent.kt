@@ -5,11 +5,11 @@ import akka.actor.Props
 import akka.cluster.pubsub.DistributedPubSubMediator
 import akka.japi.pf.ReceiveBuilder
 import io.sarl.akka.bic.DefaultContextInteractionsSkill
+import io.sarl.akka.bic.LifecycleSkill
 import io.sarl.akka.bic.LoggingSkill
+import io.sarl.akka.bic.SchedulesSkill
 import io.sarl.akka.space.AkkaAgentContext
-import io.sarl.core.DefaultContextInteractions
-import io.sarl.core.Initialize
-import io.sarl.core.Logging
+import io.sarl.core.*
 import io.sarl.eventdispatching.BehaviorGuardEvaluator
 import io.sarl.eventdispatching.BehaviorGuardEvaluatorRegistry
 import io.sarl.lang.core.*
@@ -27,6 +27,8 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
     private var sarlAgent: Agent
     private val loggingSkill: LoggingSkill
     private val spaceSkill: DefaultContextInteractionsSkill
+    private val lifecycleSkill: LifecycleSkill
+    private val schedulesSkill: SchedulesSkill
 
     val agentContext: AkkaAgentContext
 
@@ -39,15 +41,19 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
         // Initialize all attributes
         this.evaluatorRegistry.register(sarlAgent)
         this.loggingSkill = LoggingSkill(sarlAgent)
+        this.lifecycleSkill = LifecycleSkill(this, sarlAgent)
         this.spaceSkill = DefaultContextInteractionsSkill(this, sarlAgent)
+        this.schedulesSkill = SchedulesSkill(this, sarlAgent)
 
         try {
             val method = Agent::class.java.getDeclaredMethod("setSkill", Class::class.java, Skill::class.java) //$NON-NLS-1$
             val isAcc = method.isAccessible
             try {
                 method.isAccessible = true
-                method.invoke(sarlAgent, Logging::class.java, this.loggingSkill)    // Register the logging skill
+                method.invoke(sarlAgent, Logging::class.java, this.loggingSkill)                    // Register the logging skill
                 method.invoke(sarlAgent, DefaultContextInteractions::class.java, this.spaceSkill)   // Register the space skill
+                method.invoke(sarlAgent, Lifecycle::class.java, this.lifecycleSkill)           // Register the lifecycle skill
+                method.invoke(sarlAgent, Schedules::class.java, this.schedulesSkill)           // Register the schedules skill
             } finally {
                 method.isAccessible = isAcc
             }
@@ -86,6 +92,7 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
             try {
                 evaluator.evaluateGuard(event, handlers)
             } catch (e: Throwable) {
+                e.printStackTrace()     // TODO Remove the printStackTrace
                 this.loggingSkill.error(e.localizedMessage)
             }
 
@@ -94,6 +101,7 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
             try {
                 handler.run()
             } catch (e: Throwable) {
+                e.printStackTrace()     // TODO Remove the printStackTrace
                 this.loggingSkill.error(e.localizedMessage)
             }
 

@@ -22,7 +22,7 @@ class DefaultContextInteractionsSkill(val akkaAgent: AkkaAgent, owner: Agent) : 
 
     override fun emit(e: Event, scope: Scope<Address>) {
         if (e.source == null) {
-            e.source = defaultSpace.getAddress(id);
+            e.source = defaultSpace.getAddress(id)
         }
 
         defaultSpace.emit(e.source.uuid, e, scope)
@@ -30,38 +30,38 @@ class DefaultContextInteractionsSkill(val akkaAgent: AkkaAgent, owner: Agent) : 
 
     override fun emit(e: Event) {
         if (e.source == null) {
-            e.source = defaultSpace.getAddress(id);
+            e.source = defaultSpace.getAddress(id)
         }
-        defaultSpace.emit(e);
+        defaultSpace.emit(e)
     }
 
     @Deprecated("")
     override fun receive(receiver: UUID, e: Event) {
-        willReceive(receiver, e);
+        willReceive(receiver, e)
     }
 
     override fun isDefaultSpace(space: Space): Boolean {
-        return space.id == defaultSpace.id;
+        return space.id == defaultSpace.id
     }
 
     override fun isDefaultSpace(space: SpaceID): Boolean {
-        return space.equals(defaultSpace.getID());
+        return space.equals(defaultSpace.id)
     }
 
     override fun isDefaultSpace(space: UUID): Boolean {
-        return space == defaultSpace.id.id;
+        return space == defaultSpace.id.id
     }
 
     override fun isInDefaultSpace(event: Event): Boolean {
-        return isDefaultSpace(event.source.spaceId);
+        return isDefaultSpace(event.source.spaceId)
     }
 
     override fun isDefaultContext(context: AgentContext): Boolean {
-        return context.id == defaultContext.id;
+        return context.id == defaultContext.id
     }
 
     override fun isDefaultContext(contextID: UUID): Boolean {
-        return contextID == defaultContext.id;
+        return contextID == defaultContext.id
     }
 
     override fun spawn(aAgent: Class<out io.sarl.lang.core.Agent>, vararg params: Any): UUID {

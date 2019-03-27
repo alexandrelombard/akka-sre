@@ -55,7 +55,8 @@ class AkkaEventSpace(val agentContext: AkkaAgentContext) : OpenEventSpace {
         return spaceId
     }
 
-    override fun emit(eventSource: UUID, event: Event, scope: Scope<Address>) {
+    override fun emit(eventSource: UUID?, event: Event, scope: Scope<Address>?) {
+        // TODO Use the scope
         mediator.tell(DistributedPubSubMediator.Publish(spaceId.id.toString(), event), ActorRef.noSender())
     }
 }
