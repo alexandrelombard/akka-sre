@@ -33,9 +33,13 @@ compileTestKotlin.kotlinOptions {
 kotlin {
     sourceSets["main"].dependencies {
         implementation("commons-cli:commons-cli:1.4")
+
         implementation("io.sarl:io.sarl.core:$sarlVersion")
         implementation("io.sarl.lang:io.sarl.lang:$sarlVersion")
         implementation("io.sarl.lang:io.sarl.lang.core:$sarlVersion")
+
+        implementation("org.eclipse.xtext:org.eclipse.xtext.xbase:2.19.0")
+
         implementation("com.typesafe.akka:akka-actor_$akka:$akkaVersion")
         implementation("com.typesafe.akka:akka-remote_$akka:$akkaVersion")
         implementation("com.typesafe.akka:akka-cluster_$akka:$akkaVersion")

@@ -76,7 +76,8 @@ class LoggingSkill(owner: Agent) : Skill(owner), Logging {
     }
 
     override fun warning(message: Any, vararg parameters: Any) {
-        println("[" + this.loggingName + "] WARNING: " + message) //$NON-NLS-1$ //$NON-NLS-2$
+//        println("[" + this.loggingName + "] WARNING: " + message) //$NON-NLS-1$ //$NON-NLS-2$
+        this.logger.warning(message.toString())
     }
 
     override fun info(message: Any, vararg parameters: Any) {

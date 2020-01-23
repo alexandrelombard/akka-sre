@@ -10,8 +10,8 @@ import io.sarl.akka.bic.LoggingSkill
 import io.sarl.akka.bic.SchedulesSkill
 import io.sarl.akka.space.AkkaAgentContext
 import io.sarl.core.*
-import io.sarl.eventdispatching.BehaviorGuardEvaluator
-import io.sarl.eventdispatching.BehaviorGuardEvaluatorRegistry
+//import io.sarl.eventdispatching.BehaviorGuardEvaluator
+//import io.sarl.eventdispatching.BehaviorGuardEvaluatorRegistry
 import io.sarl.lang.core.*
 
 import java.lang.reflect.Constructor
@@ -22,7 +22,7 @@ import java.util.UUID
 
 class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), EventListener {
 
-    private val evaluatorRegistry = BehaviorGuardEvaluatorRegistry()
+//    private val evaluatorRegistry = BehaviorGuardEvaluatorRegistry()
 
     private var sarlAgent: Agent
     private val loggingSkill: LoggingSkill
@@ -39,7 +39,7 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
         this.sarlAgent = cons.newInstance(null, agentContext.id)
 
         // Initialize all attributes
-        this.evaluatorRegistry.register(sarlAgent)
+//        this.evaluatorRegistry.register(sarlAgent)
         this.loggingSkill = LoggingSkill(sarlAgent)
         this.lifecycleSkill = LifecycleSkill(this, sarlAgent)
         this.spaceSkill = DefaultContextInteractionsSkill(this, sarlAgent)
@@ -86,17 +86,16 @@ class AkkaAgent(private val agentClass: Class<out Agent>) : AbstractActor(), Eve
     }
 
     private fun fireEvent(event: Event) {
-        val evaluators = this.evaluatorRegistry.getBehaviorGuardEvaluators(event)
+//        val evaluators = this.evaluatorRegistry.getBehaviorGuardEvaluators(event)
         val handlers = ArrayList<Runnable>()
-        for (evaluator in evaluators) {
-            try {
-                evaluator.evaluateGuard(event, handlers)
-            } catch (e: Throwable) {
-                e.printStackTrace()     // TODO Remove the printStackTrace
-                this.loggingSkill.error(e.localizedMessage)
-            }
-
-        }
+//        for (evaluator in evaluators) {
+//            try {
+//                evaluator.evaluateGuard(event, handlers)
+//            } catch (e: Throwable) {
+//                e.printStackTrace()     // TODO Remove the printStackTrace
+//                this.loggingSkill.error(e.localizedMessage)
+//            }
+//        }
         for (handler in handlers) {
             try {
                 handler.run()
