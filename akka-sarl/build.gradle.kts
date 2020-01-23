@@ -4,6 +4,7 @@ group = "io.sarl.akka"
 version = "1.0.0-SNAPSHOT"
 
 plugins {
+    java
     kotlin("jvm") version "1.3.61"
     `maven-publish`
 }
@@ -28,6 +29,26 @@ compileKotlin.kotlinOptions {
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
     jvmTarget = "1.8"
+}
+
+val jar by tasks.getting(Jar::class) {
+    manifest {
+        attributes["Main-Class"] = "io.sarl.akka.Boot"
+        attributes("SARL-Runtime-Environment",
+                Pair("SRE-Name", "Akka SRE"),
+                Pair("SARL-Spec-Version", "0.10"),
+                Pair("Standalone-SRE", "true"),
+                Pair("VM-Arguments", "-ea"))
+        attributes("Program-Arguments",
+                Pair("CLI-Show-Logo", ""),
+                Pair("CLI-Hide-Logo", ""),
+                Pair("CLI-Show-Info", ""),
+                Pair("CLI-Hide-Info", ""),
+                Pair("CLI-Default-Context-ID", ""),
+                Pair("CLI-BootAgent-Context-ID", ""),
+                Pair("CLI-Offline", ""),
+                Pair("CLI-Embedded", ""))
+    }
 }
 
 kotlin {
