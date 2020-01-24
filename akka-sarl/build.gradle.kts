@@ -76,9 +76,27 @@ val jar by tasks.getting(Jar::class) {
     }
 }
 
-val shadowJar by tasks.getting(ShadowJar::class) {
-    transform(AppendingTransformer::class.java) {
-        resource = "reference.conf"
-    }
-//    this.with(jar)
-}
+//val shadowJar by tasks.getting(ShadowJar::class) {
+//    manifest {
+//        attributes["Main-Class"] = "io.sarl.akka.Boot"
+//        attributes("SARL-Runtime-Environment",
+//                Pair("SRE-Name", "Akka SRE"),
+//                Pair("SARL-Spec-Version", "0.11"),
+//                Pair("Standalone-SRE", "true"),
+//                Pair("VM-Arguments", "-ea"))
+//        attributes("Program-Arguments",
+//                Pair("CLI-Show-Logo", ""),
+//                Pair("CLI-Hide-Logo", ""),
+//                Pair("CLI-Show-Info", ""),
+//                Pair("CLI-Hide-Info", ""),
+//                Pair("CLI-Default-Context-ID", ""),
+//                Pair("CLI-BootAgent-Context-ID", ""),
+//                Pair("CLI-Offline", ""),
+//                Pair("CLI-Embedded", ""))
+//    }
+//
+//    transform(AppendingTransformer::class.java) {
+//        resource = "reference.conf"
+//    }
+////    this.with(jar)
+//}
