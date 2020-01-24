@@ -189,7 +189,7 @@ object Boot {
             }
 
             return cmd.args
-        } catch (e: org.apache.commons.cli.ParseException) {
+        } catch (e: ParseException) {
             // TODO showError(e.getLocalizedMessage(), e);
             // Event if showError never returns, add the return statement for
             // avoiding compilation error.
@@ -262,14 +262,17 @@ object Boot {
             val agent = loadAgentClass(agentToLaunch)
 
             // Spawn the agent
-            // FIXME reference.conf should be automatically merged from Akka configuration files when the JAR is being built
+            // FIXME merged-reference.conf should be automatically merged from Akka configuration files when the JAR is being built
             val referenceConfigText = javaClass::class.java.getResourceAsStream("/io/sarl/akka/merged-reference.conf").bufferedReader().readText()
             val config = ConfigFactory
                     .parseResources(javaClass, "sre.conf")
                     .withFallback(ConfigFactory.parseString(referenceConfigText))
+//                    .withFallback(ConfigFactory.defaultReference(javaClass::class.java.classLoader))
                     .resolve()
 
+
             system = ActorSystem.create("sre-akka", config)
+//            system = ActorSystem.create("sre-akka")
             val actorRef = system.actorOf(AkkaAgent.props(agent!!))
         } catch (e: ParseException) {
             // TODO

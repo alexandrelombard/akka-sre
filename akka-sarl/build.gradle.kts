@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "io.sarl.akka"
@@ -6,6 +8,7 @@ version = "1.0.0-SNAPSHOT"
 plugins {
     java
     kotlin("jvm") version "1.3.61"
+    id("com.github.johnrengelman.shadow") version "5.0.0"
     `maven-publish`
 }
 
@@ -54,7 +57,7 @@ val jar by tasks.getting(Jar::class) {
         attributes["Main-Class"] = "io.sarl.akka.Boot"
         attributes("SARL-Runtime-Environment",
                 Pair("SRE-Name", "Akka SRE"),
-                Pair("SARL-Spec-Version", "0.10"),
+                Pair("SARL-Spec-Version", "0.11"),
                 Pair("Standalone-SRE", "true"),
                 Pair("VM-Arguments", "-ea"))
         attributes("Program-Arguments",
@@ -68,5 +71,14 @@ val jar by tasks.getting(Jar::class) {
                 Pair("CLI-Embedded", ""))
     }
 
-    from(configurations.compileClasspath.get().map { if(it.isDirectory) it else zipTree(it) })
+    from(configurations.compileClasspath.get().map { if(it.isDirectory) it else zipTree(it) }) {
+        exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
+    }
+}
+
+val shadowJar by tasks.getting(ShadowJar::class) {
+    transform(AppendingTransformer::class.java) {
+        resource = "reference.conf"
+    }
+//    this.with(jar)
 }

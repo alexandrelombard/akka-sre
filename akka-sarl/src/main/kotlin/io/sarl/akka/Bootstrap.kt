@@ -34,6 +34,6 @@ class Bootstrap : SREBootstrap {
     }
 
     override fun getBootAgentIdentifier(): UUID? {
-        return null
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
