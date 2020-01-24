@@ -31,6 +31,24 @@ compileTestKotlin.kotlinOptions {
     jvmTarget = "1.8"
 }
 
+kotlin {
+    sourceSets["main"].dependencies {
+        implementation("commons-cli:commons-cli:1.4")
+
+        implementation("io.sarl:io.sarl.core:$sarlVersion")
+        implementation("io.sarl.lang:io.sarl.lang:$sarlVersion")
+        implementation("io.sarl.lang:io.sarl.lang.core:$sarlVersion")
+        implementation("io.sarl:io.sarl.util:$sarlVersion")
+
+        implementation("org.eclipse.xtext:org.eclipse.xtext.xbase:2.19.0")
+
+        implementation("com.typesafe.akka:akka-actor_$akka:$akkaVersion")
+        implementation("com.typesafe.akka:akka-remote_$akka:$akkaVersion")
+        implementation("com.typesafe.akka:akka-cluster_$akka:$akkaVersion")
+        implementation("com.typesafe.akka:akka-cluster-tools_$akka:$akkaVersion")
+    }
+}
+
 val jar by tasks.getting(Jar::class) {
     manifest {
         attributes["Main-Class"] = "io.sarl.akka.Boot"
@@ -49,22 +67,6 @@ val jar by tasks.getting(Jar::class) {
                 Pair("CLI-Offline", ""),
                 Pair("CLI-Embedded", ""))
     }
-}
 
-kotlin {
-    sourceSets["main"].dependencies {
-        implementation("commons-cli:commons-cli:1.4")
-
-        implementation("io.sarl:io.sarl.core:$sarlVersion")
-        implementation("io.sarl.lang:io.sarl.lang:$sarlVersion")
-        implementation("io.sarl.lang:io.sarl.lang.core:$sarlVersion")
-        implementation("io.sarl:io.sarl.util:$sarlVersion")
-
-        implementation("org.eclipse.xtext:org.eclipse.xtext.xbase:2.19.0")
-
-        implementation("com.typesafe.akka:akka-actor_$akka:$akkaVersion")
-        implementation("com.typesafe.akka:akka-remote_$akka:$akkaVersion")
-        implementation("com.typesafe.akka:akka-cluster_$akka:$akkaVersion")
-        implementation("com.typesafe.akka:akka-cluster-tools_$akka:$akkaVersion")
-    }
+    from(configurations.compileClasspath.get().map { if(it.isDirectory) it else zipTree(it) })
 }
