@@ -58,6 +58,7 @@ kotlin {
         implementation("io.sarl:io.sarl.core:$sarlVersion")
         implementation("io.sarl.lang:io.sarl.lang:$sarlVersion")
         implementation("io.sarl.lang:io.sarl.lang.core:$sarlVersion")
+        implementation("io.sarl:io.sarl.util:$sarlVersion")
 
         implementation("org.eclipse.xtext:org.eclipse.xtext.xbase:2.19.0")
 

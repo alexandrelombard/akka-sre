@@ -5,11 +5,11 @@ import akka.actor.ActorRef
 import akka.cluster.pubsub.DistributedPubSub
 import akka.cluster.pubsub.DistributedPubSubMediator
 import io.sarl.akka.AkkaAgent
+import io.sarl.core.OpenEventSpace
+import io.sarl.core.OpenEventSpaceSpecification
 import io.sarl.lang.core.*
 import io.sarl.lang.core.EventListener
 import io.sarl.lang.util.SynchronizedSet
-import io.sarl.util.OpenEventSpace
-import io.sarl.util.OpenEventSpaceSpecification
 import java.lang.IllegalArgumentException
 import java.util.*
 
@@ -19,6 +19,14 @@ class AkkaEventSpace(val agentContext: AkkaAgentContext) : OpenEventSpace {
     private val spaceId = SpaceID(agentContext.id, UUID.randomUUID(), OpenEventSpaceSpecification::class.java)
     private val topic = spaceId.id.toString()    // Random topic (space identifier)
 
+    override fun getParticipants(): SynchronizedSet<UUID> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getAddress(p0: UUID?): Address {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun register(entity: EventListener): Address {
         if(entity is AkkaAgent) {
             mediator.tell(DistributedPubSubMediator.Subscribe(topic, entity.self), entity.self)
@@ -27,6 +35,10 @@ class AkkaEventSpace(val agentContext: AkkaAgentContext) : OpenEventSpace {
         }
 
         return Address(spaceId, entity.id)
+    }
+
+    override fun getSpaceID(): SpaceID {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun unregister(entity: EventListener): Address {
@@ -39,24 +51,7 @@ class AkkaEventSpace(val agentContext: AkkaAgentContext) : OpenEventSpace {
         return Address(spaceId, entity.id)
     }
 
-    override fun getParticipants(): SynchronizedSet<UUID> {
+    override fun emit(p0: UUID?, p1: Event?, p2: Scope<Address>?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getAddress(id: UUID): Address {
-        return Address(spaceId, null)
-    }
-
-    override fun getSpaceID(): SpaceID {
-        return spaceId
-    }
-
-    override fun getID(): SpaceID {
-        return spaceId
-    }
-
-    override fun emit(eventSource: UUID?, event: Event, scope: Scope<Address>?) {
-        // TODO Use the scope
-        mediator.tell(DistributedPubSubMediator.Publish(spaceId.id.toString(), event), ActorRef.noSender())
     }
 }

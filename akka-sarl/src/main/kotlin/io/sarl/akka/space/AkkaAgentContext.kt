@@ -15,7 +15,7 @@ class AkkaAgentContext(val agent: AkkaAgent) : AgentContext {
     private val spaces = hashMapOf<UUID, Space>()
 
     init {
-        spaces[defaultSpace.id.id] = defaultSpace
+
     }
 
     override fun getSpaces(): SynchronizedIterable<out Space> {
@@ -39,11 +39,11 @@ class AkkaAgentContext(val agent: AkkaAgent) : AgentContext {
     }
 
     override fun <S : Space?> getSpace(spaceUUID: UUID): S {
-        return spaces[spaceUUID] as S   // TODO Issue?
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getDefaultSpace(): EventSpace {
-        return defaultSpace
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun <S : Space?> getOrCreateSpaceWithID(spec: Class<out SpaceSpecification<S>>?, spaceUUID: UUID?, vararg creationParams: Any?): S {
