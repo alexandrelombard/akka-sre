@@ -23,8 +23,8 @@ class AkkaEventSpace(val agentContext: AkkaAgentContext) : OpenEventSpace {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getAddress(p0: UUID?): Address {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getAddress(id: UUID?): Address {
+        return Address(this.spaceId, id)
     }
 
     override fun register(entity: EventListener): Address {

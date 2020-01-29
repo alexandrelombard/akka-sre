@@ -43,7 +43,7 @@ class AkkaAgentContext(val agent: AkkaAgent) : AgentContext {
     }
 
     override fun getDefaultSpace(): EventSpace {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return defaultSpace
     }
 
     override fun <S : Space?> getOrCreateSpaceWithID(spec: Class<out SpaceSpecification<S>>?, spaceUUID: UUID?, vararg creationParams: Any?): S {

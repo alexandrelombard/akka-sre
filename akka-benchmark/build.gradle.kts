@@ -21,8 +21,11 @@ kotlin {
         implementation("commons-cli:commons-cli:1.4")
         implementation("com.typesafe.akka:akka-actor_$akka:$akkaVersion")
         implementation("com.typesafe.akka:akka-remote_$akka:$akkaVersion")
-        implementation("com.typesafe.akka:akka-cluster_$akka:$akkaVersion")
+        implementation("com.typesafe.akka:akka-cluster-typed_$akka:$akkaVersion")
         implementation("com.typesafe.akka:akka-cluster-tools_$akka:$akkaVersion")
+
+        implementation("io.aeron:aeron-driver:1.25.1")
+        implementation("io.aeron:aeron-client:1.25.1")
     }
 }
 dependencies {

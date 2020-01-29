@@ -26,6 +26,7 @@ import java.util.Arrays
  */
 object Boot {
 
+    // region CLI options
     /** Short command-line option for "embedded". */
     val CLI_OPTION_EMBEDDED_SHORT = "e" //$NON-NLS-1$
 
@@ -133,6 +134,7 @@ object Boot {
     val CLI_OPTION_CLASSPATH_LONG = "classpath" //$NON-NLS-1$
 
     private val ERROR_EXIT_CODE = 255
+    // endregion
 
     /**
      * Replies the console stream for logging messages from the boot mechanism.
@@ -248,7 +250,7 @@ object Boot {
             val cmd = parser.parse(options, args, false)
             var freeArgs = cmd.args
 
-            if (freeArgs.size == 0) {
+            if (freeArgs.isEmpty()) {
                 showError("You must give the fully qualified name of the agent to launch.", null)
                 // Event if showError never returns, add the return statement for
                 // avoiding compilation error.
@@ -267,12 +269,10 @@ object Boot {
             val config = ConfigFactory
                     .parseResources(javaClass, "sre.conf")
                     .withFallback(ConfigFactory.parseString(referenceConfigText))
-//                    .withFallback(ConfigFactory.defaultReference(javaClass::class.java.classLoader))
                     .resolve()
 
 
             system = ActorSystem.create("sre-akka", config)
-//            system = ActorSystem.create("sre-akka")
             val actorRef = system.actorOf(AkkaAgent.props(agent!!))
         } catch (e: ParseException) {
             // TODO
