@@ -136,27 +136,10 @@ object Boot {
     private val ERROR_EXIT_CODE = 255
     // endregion
 
-    /**
-     * Replies the console stream for logging messages from the boot mechanism.
-     *
-     * The console stream is independent of the stream used by the logging service of the platform. Indeed,
-     * the console stream is used for displaying information, warnings and messages before the Janus platform is realy launched.
-     * @return the console logger.
-     */
-    /**
-     * Replies the console stream for logging messages from the boot mechanism.
-     *
-     * The console stream is independent of the stream used by the logging service of the platform. Indeed,
-     * the console stream is used for displaying information, warnings and messages before the Janus platform is realy launched.
-     * @param stream the stream to use for the console logging.
-     */
+
     var consoleLogger: PrintStream? = null
         get() = if (field == null) System.out else field
 
-    /**
-     * Replies the command line options supported by this boot class.
-     * @return the command line options.
-     */
     val options: Options
         get() {
             val options = Options()
@@ -272,7 +255,7 @@ object Boot {
                     .resolve()
 
 
-            system = ActorSystem.create("sre-akka", config)
+            system = ActorSystem.create("akka-sre", config)
             val actorRef = system.actorOf(AkkaAgent.props(agent!!))
         } catch (e: ParseException) {
             // TODO
